@@ -1,0 +1,61 @@
+{
+    "name": "linlak/laravel-momo-sdk",
+    "description": "This is a simple php library that has been designed to help laravel developers to easily integrate the mtn momo api into their laravel projects with great ease.",
+    "type": "library",
+    "homepage": "https://github.com/linlak/laravel-momo-sdk",
+    "support": {
+        "issues": "https://github.com/linlak/laravel-momo-sdk/issues",
+        "source": "https://github.com/linlak/laravel-momo-sdk"
+    },
+    "license": "MIT",
+    "keywords": [
+        "momo api",
+        "laravel mtn momo",
+        "mtn uganda api",
+        "integration",
+        "momo",
+        "momo pay",
+        "linlak",
+        "api",
+        "mobile money",
+        "online payment",
+        "payment"
+    ],
+    "authors": [{
+        "name": "Linus Nowomukama",
+        "email": "ugsalons@gmail.com",
+        "role": "Developer"
+    }],
+    "require": {
+        "php": ">=7.1.3",
+        "guzzlehttp/guzzle": "^6.3",
+        "illuminate/http": "5.7.* || 5.8.* || ^6.0",
+        "illuminate/routing": "5.7.* || 5.8.* || ^6.0",
+        "illuminate/session": "5.7.* || 5.8.* || ^6.0",
+        "illuminate/support": "5.7.* || 5.8.* || ^6.0",
+        "illuminate/view": "5.7.* || 5.8.* || ^6.0"
+    },
+    "config": {
+        "sort-packages": true,
+        "preferred-install": "dist"
+    },
+    "autoload": {
+        "psr-4": {
+            "LaMomo\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "LaMomo\\Providers\\MomoServiceProvider"
+            ],
+            "aliases": {
+                "RequestToPay": "LaMomo\\Facades\\RequestToPay",
+                "Remittances": "LaMomo\\Facades\\Remittances",
+                "Disbursements": "LaMomo\\Facades\\Disbursements"
+            }
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
