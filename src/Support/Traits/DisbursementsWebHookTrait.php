@@ -3,8 +3,8 @@
 namespace LaMomo\Support\Traits;
 
 use Illuminate\Http\Request;
+use LaMomo\Facades\DisbursementsFacade;
 use LaMomo\Support\Responses\RequestStatus;
-use LaMomo\Facades\Disbursements;
 
 trait DisbursementsWebHookTrait
 {
@@ -12,7 +12,7 @@ trait DisbursementsWebHookTrait
     {
         $refrenceId = $request->json('refrenceId');
         if (!is_null($refrenceId)) {
-            $result = Disbursements::transferStatus($refrenceId);
+            $result = DisbursementsFacade::transferStatus($refrenceId);
             if ($result->resourceExists()) {
                 $this->momoConfirmed($result);
             } else {

@@ -41,9 +41,33 @@ use Psr\Http\Message\ResponseInterface;
 interface MomoInterface
 {
 	// function setHeaders($key, $value);
-	// function removeHeader($key);
-	// function send(Request $request);
+	/**
+	 * @param string $key
+	 * 
+	 * @return void
+	 */
+	public function removeHeader($key);
+
+
+	/**
+	 * Get cache instance.
+	 *
+	 * @return \LaMomo\Support\Cache
+	 */
+	public function getCache();
+	/**
+	 * @return string
+	 */
+	public function getMomoBase();
 	// function genRequest($mtd, $url, $body = false);
-	// public function setAuth();
+	public function setAuth();
 	// public function setApiKey($apiKey);
+	/**
+	 * @return \LaMomo\Support\Responses\ApiUserResponse
+	 */
+	public function createApiUser();
+	/**
+	 * @return \LaMomo\Support\Responses\ApiUserInfoResponse
+	 */
+	public function getApiUser();
 }

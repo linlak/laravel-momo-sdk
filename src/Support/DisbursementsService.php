@@ -2,10 +2,11 @@
 
 namespace LaMomo\Support;
 
-use LaMomo\Contracts\MomoProduct;
 use Illuminate\Cache\CacheManager;
+use LaMomo\Contracts\Disbursements;
+use LaMomo\Contracts\MomoProduct;
 
-class Disbursements extends BaseMomoModel implements MomoProduct
+class DisbursementsService extends BaseMomoModel implements Disbursements
 {
     public function __construct(CacheManager $cache)
     {

@@ -48,7 +48,7 @@ class TokenResponse extends MomoResponse
 	private function setToken()
 	{
 		if ($this->status_code === 200) {
-			$this->is_created = $this->is_created = true;
+			$this->is_created  = true;
 			$this->access_token = $this->getData('access_token');
 			$this->token_type = $this->getData('token_type');
 			$this->expires_in = $this->getData('expires_in');

@@ -3,8 +3,9 @@
 namespace LaMomo\Facades;
 
 use Illuminate\Support\Facades\Facade;
+use LaMomo\Contracts\Collections;
 
-class Collections extends Facade
+class CollectionsFacade extends Facade
 {
     /**
      * @method static requestBalance();
@@ -15,6 +16,6 @@ class Collections extends Facade
      */
     protected static function getFacadeAccessor()
     {
-        return 'momo_collections';
+        return Collections::class;
     }
 }

@@ -3,8 +3,9 @@
 namespace LaMomo\Facades;
 
 use Illuminate\Support\Facades\Facade;
+use LaMomo\Contracts\Remittances;
 
-class Disbursements extends Facade
+class RemittancesFacade extends Facade
 {
     /**
      * Get the registered name of the component.
@@ -13,6 +14,6 @@ class Disbursements extends Facade
      */
     protected static function getFacadeAccessor()
     {
-        return 'momo_disbursements';
+        return Remittances::class;
     }
 }

@@ -3,6 +3,7 @@
 namespace LaMomo\Support\Traits;
 
 use Illuminate\Http\Request;
+use LaMomo\Facades\CollectionsFacade;
 use LaMomo\Support\Responses\RequestStatus;
 
 trait CollectionsWebHookTrait
@@ -11,7 +12,7 @@ trait CollectionsWebHookTrait
     {
         $refrenceId = $request->json('refrenceId');
         if (!is_null($refrenceId)) {
-            $result = Collections::requestToPayStatus($refrenceId);
+            $result = CollectionsFacade::requestToPayStatus($refrenceId);
             if ($result->resourceExists()) {
                 $this->momoConfirmed($result);
             } else {

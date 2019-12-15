@@ -3,9 +3,9 @@
 namespace LaMomo\Support;
 
 use Illuminate\Cache\CacheManager;
-use LaMomo\Contracts\MomoProduct;
+use LaMomo\Contracts\Remittances;
 
-class Remittances extends BaseMomoModel implements MomoProduct
+class RemittancesService extends BaseMomoModel implements Remittances
 {
     public function __construct(CacheManager $cache)
     {

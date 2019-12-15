@@ -50,9 +50,9 @@
                 "LaMomo\\Providers\\MomoServiceProvider"
             ],
             "aliases": {
-                "RequestToPay": "LaMomo\\Facades\\RequestToPay",
-                "Remittances": "LaMomo\\Facades\\Remittances",
-                "Disbursements": "LaMomo\\Facades\\Disbursements"
+                "Collections": "LaMomo\\Facades\\CollectionsFacade",
+                "Remittances": "LaMomo\\Facades\\RemittancesFacade",
+                "Disbursements": "LaMomo\\Facades\\DisbursementsFacade"
             }
         }
     },

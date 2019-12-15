@@ -4,10 +4,10 @@ namespace LaMomo\Support;
 
 use Illuminate\Cache\CacheManager;
 use LaMomo\Commons\MomoLinks;
+use LaMomo\Contracts\Collections;
 use LaMomo\Support\Traits\PerformsTransfer;
-use LaMomo\Contracts\MomoProduct;
 
-class Collection extends BaseMomoModel  implements MomoProduct
+class CollectionService extends BaseMomoModel implements Collections
 {
     use PerformsTransfer;
 

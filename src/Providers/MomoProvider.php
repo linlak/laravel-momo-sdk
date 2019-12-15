@@ -2,17 +2,22 @@
 
 namespace LaMomo\Providers;
 
+use Illuminate\Contracts\Support\DeferrableProvider;
 use Illuminate\Support\ServiceProvider;
-use LaMomo\Support\Remittances;
-use LaMomo\Support\Disbursements;
-use LaMomo\Support\Collection;
 use LaMomo\Console\Commands\MomoCollections;
 use LaMomo\Console\Commands\MomoDisbursents;
-use LaMomo\Console\Commands\MomoRemittances;
 use LaMomo\Console\Commands\MomoInitialization;
+use LaMomo\Console\Commands\MomoRemittances;
+use LaMomo\Contracts\Collections;
+use LaMomo\Contracts\Disbursements;
+use LaMomo\Contracts\Remittances;
+use LaMomo\Support\CollectionService;
+use LaMomo\Support\DisbursementsService;
+use LaMomo\Support\RemittancesService;
 
-class MomoProvider extends ServiceProvider
+class MomoProvider extends ServiceProvider implements DeferrableProvider
 {
+    protected $defer = true;
     /**
      * Register the service provider.
      *
@@ -48,18 +53,23 @@ class MomoProvider extends ServiceProvider
      */
     public function registerMomoSdkService()
     {
-        $this->app->alias('momo_collections', Collection::class);
-        $this->app->alias('momo_remittances', Remittances::class);
-        $this->app->alias('momo_remittances', Disbursements::class);
-        $this->app->singleton('momo_collections', function ($app) {
-            return new Collection($app['cache']);
+        $this->app->singleton(Collections::class, function ($app) {
+            return new CollectionService($app['cache']);
         });
-        $this->app->singleton('momo_remittances', function ($app) {
-            return new Remittances($app['cache']);
+        $this->app->singleton(Remittances::class, function ($app) {
+            return new RemittancesService($app['cache']);
         });
-        $this->app->singleton('momo_disbursements', function ($app) {
-            return new Disbursements($app['cache']);
+        $this->app->singleton(Disbursements::class, function ($app) {
+            return new DisbursementsService($app['cache']);
         });
+
+        // $this->app->bind(Collections::class, CollectionService::class);
+        // $this->app->bind(Remittances::class, RemittancesService::class);
+        // $this->app->bind(Disbursements::class, DisbursementsService::class);
+
+        $this->app->alias(Collections::class, CollectionService::class);
+        $this->app->alias(Remittances::class, RemittancesService::class);
+        $this->app->alias(Disbursements::class, DisbursementsService::class);
     }
     public function boot()
     {
@@ -84,5 +94,19 @@ class MomoProvider extends ServiceProvider
                 MomoInitialization::class,
             ]);
         }
+    }
+
+    /**
+     * Get the services provided by the provider.
+     *
+     * @return array
+     */
+    public function provides()
+    {
+        return [
+            Collections::class,
+            Remittances::class,
+            Disbursements::class,
+        ];
     }
 }

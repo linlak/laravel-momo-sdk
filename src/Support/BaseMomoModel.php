@@ -2,21 +2,21 @@
 
 namespace LaMomo\Support;
 
-use Illuminate\Cache\CacheManager;
-use GuzzleHttp\Psr7\Request;
-use LaMomo\Commons\Constants;
-use LaMomo\Support\Responses\BalanceResponse;
-use GuzzleHttp\Exception\RequestException;
-use Psr\Http\Message\ResponseInterface;
-use GuzzleHttp\Client;
-use GuzzleHttp\Psr7;
-use LaMomo\Commons\MomoLinks;
 use \Exception;
-use LaMomo\Support\Responses\TokenResponse;
+use GuzzleHttp\Client;
+use GuzzleHttp\Exception\RequestException;
+use GuzzleHttp\Psr7;
+use GuzzleHttp\Psr7\Request;
+use Illuminate\Cache\CacheManager;
 use Illuminate\Support\Str;
+use LaMomo\Commons\Constants;
+use LaMomo\Commons\MomoLinks;
 use LaMomo\Support\Responses\ApiKeyResponse;
-use LaMomo\Support\Responses\ApiUserResponse;
 use LaMomo\Support\Responses\ApiUserInfoResponse;
+use LaMomo\Support\Responses\ApiUserResponse;
+use LaMomo\Support\Responses\BalanceResponse;
+use LaMomo\Support\Responses\TokenResponse;
+use Psr\Http\Message\ResponseInterface;
 
 abstract class BaseMomoModel
 {
@@ -230,7 +230,7 @@ abstract class BaseMomoModel
         $this->headers[$key] = $value;
     }
 
-    protected function removeHeader($key)
+    public function removeHeader($key)
     {
         if (!array_key_exists($key, $this->headers)) {
             return;
@@ -312,8 +312,10 @@ abstract class BaseMomoModel
         $this->setAuth();
         return $this->send($this->genRequest("GET", $this->getAccountHolderUri() . $accountHolderIdType . '/' . $accountHolderId . '/active'));
     }
-
-    final  public function createApiUser()
+    /**
+     * @return \LaMomo\Support\Responses\ApiUserResponse
+     */
+    public function createApiUser()
     {
         $uid = Str::uuid()->toString();
         $this->setHeaders(Constants::H_REF_ID, $uid);
@@ -323,8 +325,10 @@ abstract class BaseMomoModel
         $result = $this->send($this->genRequest("POST", $this->getUserUri(), $body));
         return new ApiUserResponse($result, $uid);
     }
-
-    final public function getApiUser()
+    /**
+     * @return \LaMomo\Support\Responses\ApiUserInfoResponse
+     */
+    public function getApiUser()
     {
         $this->removeHeader(Constants::H_AUTH);
         $this->removeHeader(Constants::H_ENVIRON);
@@ -332,18 +336,18 @@ abstract class BaseMomoModel
         return new ApiUserInfoResponse($result, $this->_apiuser);
     }
 
-    final  public function getApikey()
+    public function getApikey()
     {
         $this->removeHeader(Constants::H_AUTH);
         $this->removeHeader(Constants::H_ENVIRON);
         $result = $this->send($this->genRequest("POST", $this->getUserUri() . '/' . $this->_apiuser . '/apikey'));
         return new ApiKeyResponse($result, $this->_apiuser);
     }
-    final public function setApiUser($apiuser)
+    public function setApiUser($apiuser)
     {
         $this->_apiuser = $apiuser;
     }
-    final public function setApiUKey($apikey)
+    public function setApiUKey($apikey)
     {
         $this->_api_key = $apikey;
     }
