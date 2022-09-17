@@ -3,7 +3,7 @@
 namespace LaMomo\Console\Commands;
 
 use Illuminate\Console\Command;
-use LaMomo\Facades\Collections;
+use LaMomo\Facades\CollectionsFacade;
 use LaMomo\Support\Traits\SDKConsole;
 
 class MomoCollections extends Command
@@ -43,8 +43,8 @@ class MomoCollections extends Command
     {
         //
         $this->showWelcome();
-        $apiUser = Collections::getApiUser();
-        dump($apiUser);
+        $apiUser = CollectionsFacade::getApiUser();
+        $this->comment($apiUser);
     }
 
     // COLLECTIONS_PRIMARY

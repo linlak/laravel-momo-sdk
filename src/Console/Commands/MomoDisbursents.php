@@ -3,8 +3,9 @@
 namespace LaMomo\Console\Commands;
 
 use Illuminate\Console\Command;
-use LaMomo\Facades\Disbursements;
+use LaMomo\Facades\DisbursementsFacade;
 use LaMomo\Support\Traits\SDKConsole;
+use Illuminate\Support\Str;
 
 class MomoDisbursents extends Command
 {
@@ -45,8 +46,8 @@ class MomoDisbursents extends Command
         //
         $this->showWelcome();
 
-        $apiUser = Disbursements::getApiUser();
-        dump($apiUser);
+        $apiUser = DisbursementsFacade::getApiUser();
+        $this->comment($apiUser);
     }
     public function initDisbursements()
     {

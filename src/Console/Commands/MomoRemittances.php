@@ -3,7 +3,7 @@
 namespace LaMomo\Console\Commands;
 
 use Illuminate\Console\Command;
-use LaMomo\Facades\Remittances;
+use LaMomo\Facades\RemittancesFacade;
 use LaMomo\Support\Traits\SDKConsole;
 
 class MomoRemittances extends Command
@@ -43,8 +43,8 @@ class MomoRemittances extends Command
     {
         //
         $this->showWelcome();
-        $apiUser = Remittances::getApiUser();
-        dump($apiUser);
+        $apiUser = RemittancesFacade::getApiUser();
+        $this->comment($apiUser);
     }
     //REMITTANCES_PRIMARY
     // REMITTANCES_SECONDARY
